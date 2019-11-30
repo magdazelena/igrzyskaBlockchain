@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
-
+import {Redirect} from 'react-router-dom';
 
 class Main extends Component {
     constructor(props){
         super(props);
         this.state ={
             balance: 0,
-            tokens: 0
+            tokens: 0, 
+            redirect: false
         }
         this.buyTickets = this.buyTickets.bind(this);
     }
@@ -17,6 +18,18 @@ class Main extends Component {
     }
     buyTickets = ()=>{
         //route to tickets component
+        this.setState({
+            redirect: true
+        })
+        
+    }
+    renderRedirect = ()=>{
+    if(this.state.redirect)
+        return <Redirect to={{
+            pathname: '/tickets',
+            state: { id: '123' }
+             }}
+        />
     }
     render(){
         return <div>
@@ -30,8 +43,8 @@ class Main extends Component {
                 </div>
             </div>
             <div className="options">
-                <div className="item" onClick={this.buyTickets}>
-
+                <div className="item" onClick={this.buyTickets} >
+                {this.renderRedirect()}
                 </div>
                 <div className="item">
 

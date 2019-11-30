@@ -1,22 +1,45 @@
-.App {
+:root{
+  --background: gray;
+  --border: 3px;
+}
+.App{
+  background-color: var(--background);
+  font-size: 12px;
+  
+}
+.App-header {
+  background-color: #282c34;
+  color: white;
+  padding: 1em;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
+.balanceHeader{
+  background-color: white;
+  padding: 2em;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.moneyBalance, .tokenBalance{
+  min-height: 3em;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  border-bottom: 1px solid var(--background);
 }
-
-.App-link {
-  color: #09d3ac;
+.moneyBalance > div, .tokenBalance {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.moneyQuota{
+  width: 70%;
+  border-right: var(--border) solid var(--background);
+}
+.options{
+  display: flex;
+  flex-wrap: wrap;;
+}
+.options .item{
+  background-color: navy;
+  width: 6em;
+  height: 6em;
+  margin: 1em;
+  cursor:pointer;
 }
