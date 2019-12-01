@@ -118,7 +118,7 @@ export class TokenControllerController {
     try {
       let networkObj = await blockchainClient.connectToNetwork();
 
-      let resp = await blockchainClient.get_users(networkObj!.contract);
+      let resp = await blockchainClient.get_services_to_use(networkObj!.contract);
       return JSON.parse(resp.toString());
 
     } catch (error) {
@@ -140,7 +140,7 @@ export class TokenControllerController {
     try {
       let networkObj = await blockchainClient.connectToNetwork();
 
-      let resp = await blockchainClient.get_users(networkObj!.contract);
+      let resp = await blockchainClient.get_services_to_get(networkObj!.contract);
       return JSON.parse(resp.toString());
 
     } catch (error) {
@@ -165,7 +165,7 @@ export class TokenControllerController {
 
 
 
-      return await blockchainClient.transaction_used(networkObj!.contract, requestBody);
+      return await blockchainClient.transaction_used(networkObj!.contract, JSON.stringify(requestBody));
 
 
 
@@ -188,7 +188,7 @@ export class TokenControllerController {
     try {
       let networkObj = await blockchainClient.connectToNetwork();
 
-      return await blockchainClient.transaction_recevied(networkObj!.contract, requestBody);
+      return await blockchainClient.transaction_recevied(networkObj!.contract, JSON.stringify(requestBody));
 
 
     } catch (error) {

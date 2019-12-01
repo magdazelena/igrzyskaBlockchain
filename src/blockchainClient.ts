@@ -117,7 +117,7 @@ export module BlockChainModule {
     }
 
     async transaction_recevied(contract: any, json: any) {
-      let response = await contract.submitTransaction('transaction_recevied', json);
+      let response = await contract.submitTransaction('transaction_received', json);
       // console.log(response.toString())
       return response;
     }
