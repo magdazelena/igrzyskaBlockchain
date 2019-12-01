@@ -58,7 +58,7 @@ class Main extends Component {
         return (<div>
             <div className="balanceHeader">
                 <div className='moneyBalance'>
-                    <div className="moneyQuota">{this.state.balance} PLN</div>
+                    <div className="moneyQuota">{parseFloat(this.state.balance).toFixed(2)} PLN</div>
                     <div className="moneyAdd" onClick={this.addMoney}>
                         <FontAwesomeIcon icon={faPlus} />
                         Doładuj

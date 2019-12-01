@@ -89,8 +89,14 @@ class Tickets extends Component{
                     <div className="useTokens">
                         <div className="plus button" onClick={this.useToken}><FontAwesomeIcon icon={faPlus}/></div>
                         <div className="minus button" onClick={this.unuseToken}><FontAwesomeIcon icon={faMinus}/></div>
-                        <div className="tokensQuota">Pozostało <span className="tokensAmount">{this.state.tokens} <FontAwesomeIcon icon={faLeaf}/></span></div>
+                        <div className="tokensQuota">Użyto <span className="tokensAmount">{this.maxTokens - this.state.tokens} z {this.maxTokens} <FontAwesomeIcon icon={faLeaf}/></span></div>
                     </div>
+                    <span className="label">
+                        Obniżka:
+                    </span>
+                    <span className="value">
+                        {parseFloat(ticketValue - ticketPrice).toFixed(2)}
+                    </span>
                     <div className="toPay">
                         <span className="label">
                             Do zapłaty:
