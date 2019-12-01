@@ -9,15 +9,28 @@ class Main extends Component {
         this.state ={
             balance: 37.80,
             tokens: 3, 
-            redirect: false
+            redirect: false,
+            user: null
         }
         this.buyTickets = this.buyTickets.bind(this);
     }
-    componentDidMount = () => {
+    setStateAsync(state) {
+        return new Promise((resolve) => {
+          this.setState(state, resolve)
+        });
+      }
+    componentDidMount = async () => {
+        const response =  await fetch('http://localhost:3001/get_user/User1', {
+            method: 'GET'
+        });
+        const {balance, id} = await response.json();
+        await this.setStateAsync({
+            tokens: balance,
+            user: id
+        })
         if(this.props.history.location.state !== undefined){
             this.setState({
-                balance: this.state.balance - this.props.history.location.state.ticketPrice,
-                tokens: this.state.tokens - this.props.history.location.state.tokens
+                balance: this.state.balance - this.props.history.location.state.ticketPrice
             })
         }
     }
@@ -45,7 +58,7 @@ class Main extends Component {
     }
     renderRedirect = ()=>{
     if(this.state.redirect){
-        this.props.history.push('/tickets', {tokens: this.state.tokens})
+        this.props.history.push('/tickets', {tokens: this.state.tokens, user: this.state.user})
         return <Redirect to={{
             pathname: '/tickets'
              }}

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faLeaf, faMinus } from '@fortawesome/free-solid-svg-icons'
+import { json } from 'body-parser';
 class Tickets extends Component{
     constructor(props){
         super(props);
@@ -60,7 +61,21 @@ class Tickets extends Component{
             ticketPrice: this.state.ticketPrice < this.state.ticketValue && this.state.tokens < this.maxTokens? this.state.ticketPrice + 0.50 : this.state.ticketPrice
         })
     }
-    pay = ()=>{
+    pay = async()=>{
+        await fetch('http://localhost:3001/transaction_used', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+            body: JSON.stringify({
+                "userId": this.props.history.location.state.user,
+                "serviceId": 'ServiceToUse1',
+                "points": this.maxTokens- this.state.tokens,
+                "date": 15,
+                "signature": "xxx"
+            }),
+        });
         this.setState({
             redirect: true
         })
