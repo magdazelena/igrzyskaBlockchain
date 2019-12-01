@@ -7,11 +7,29 @@ class Main extends Component {
     constructor(props){
         super(props);
         this.state ={
-            balance: 0,
-            tokens: 0, 
+            balance: 37.80,
+            tokens: 3, 
             redirect: false
         }
         this.buyTickets = this.buyTickets.bind(this);
+    }
+    componentDidMount = () => {
+        if(this.props.history.location.state !== undefined){
+            this.setState({
+                balance: this.state.balance - this.props.history.location.state.ticketPrice,
+                tokens: this.state.tokens - this.props.history.location.state.tokens
+            })
+        }
+    }
+    componentDidUpdate = (prevProps) => {
+        if(this.props.history !== prevProps.history){
+            if(this.props.history.location.state !== undefined){
+                this.setState({
+                    balance: this.state.balance - this.props.history.location.state.ticketPrice,
+                    tokens: this.state.tokens - this.props.history.location.state.tokens
+                })
+            }
+        }
     }
     addMoney = () => {
         this.setState({
@@ -27,19 +45,17 @@ class Main extends Component {
     }
     renderRedirect = ()=>{
     if(this.state.redirect){
-        this.setState({
-            redirect: false
-        })
+        this.props.history.push('/tickets', {tokens: this.state.tokens})
         return <Redirect to={{
-            pathname: '/tickets',
-            state: this.state
+            pathname: '/tickets'
              }}
         />
+
     }
         
     }
     render(){
-        return <div>
+        return (<div>
             <div className="balanceHeader">
                 <div className='moneyBalance'>
                     <div className="moneyQuota">{this.state.balance} PLN</div>
@@ -81,7 +97,7 @@ class Main extends Component {
                     Kino
                 </div>
             </div>
-        </div>
+        </div>)
     }
 }
 
