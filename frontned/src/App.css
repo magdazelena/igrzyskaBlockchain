@@ -1,0 +1,92 @@
+:root{
+  --background: #ddd;
+  --border: 3px;
+  --blue: #222e50;
+  --green: #439a86;
+  --light: #bcd8c1;
+}
+.App{
+  background-color: var(--background);
+  font-size: 12px;
+  
+}
+.App-header {
+  background-color: #282c34;
+  color: white;
+  padding: 1em;
+  text-align: center;
+}
+
+.balanceHeader{
+  background-color: white;
+}
+.moneyBalance, .tokenBalance{
+  min-height: 6em;
+  display: flex;
+  border-bottom: 1px solid var(--background);
+}
+.moneyBalance > div, .tokenBalance {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.moneyQuota{
+  width: 70%;
+  border-right: var(--border) solid var(--background);
+  color: var(--blue);
+  font-size: 1.4em;
+}
+.tokenBalance{
+  background-color: var(--green);
+  color: white;
+  font-size: 1.6em;
+  font-weight: bold;
+}
+.tokenBalance svg{
+  margin-right: .5em;
+}
+.tokenBalance .undertitle{
+  width: 100%;
+  text-transform: uppercase;
+  font-size: .7em;
+  font-weight: normal;
+  text-align: center;
+}
+.moneyAdd{
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  color: var(--green);
+}
+.moneyAdd svg{
+  height: 2em;
+}
+.options{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+
+}
+.options .item{
+  background-color: var(--blue);
+  color: var(--light);
+  width: 8em;
+  height: 8em;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 1em;
+  cursor:pointer;
+}
+.options .item svg{
+  height: 2em;
+  width: auto;
+}

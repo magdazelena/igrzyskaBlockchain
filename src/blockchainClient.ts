@@ -116,14 +116,14 @@ export module BlockChainModule {
       return response;
     }
 
-    async get_transsaction_recevied(contract: any, id: any, serviceid: any, points: any, date: Number) {
-      let response = await contract.evaluateTransaction('get_services_to_get', id, serviceid, points, date);
+    async transsaction_recevied(contract: any, id: any, serviceid: any, points: any, date: Number, signature: any) {
+      let response = await contract.evaluateTransaction('transsaction_recevied', id, serviceid, points, date, signature);
       // console.log(response.toString())
       return response;
     }
 
-    async get_transsaction_used(contract: any, id: any, serviceid: any, points: any, date: DateType) {
-      let response = await contract.evaluateTransaction('get_services_used', id, serviceid, points, date);
+    async transsaction_used(contract: any, id: any, serviceid: any, points: any, date: Number, signature: any) {
+      let response = await contract.evaluateTransaction('transsaction_used', id, serviceid, points, date, signature);
       // console.log(response.toString())
       return response;
     }

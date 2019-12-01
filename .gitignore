@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+/node_modules
+=======
 # Logs
 logs
 *.log
@@ -62,3 +65,4 @@ typings/
 
 # Cache used by TypeScript's incremental build
 *.tsbuildinfo
+>>>>>>> b1fbd46e09bb021245b026cdcc0a78fbf3f0c8a5

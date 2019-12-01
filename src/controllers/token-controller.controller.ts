@@ -6,6 +6,9 @@
 
 /* tslint:disable:no-any */
 import { operation, param, requestBody } from '@loopback/rest';
+import { GetUser } from '../models/get-user.model';
+import { TransactionUsed } from '../models/transaction-used.model';
+import { TransactionReceived } from '../models/transaction-received.model';
 //import { ResponseMessage } from '../models/response-message.model';
 import { BlockChainModule } from '../blockchainClient';
 import { ObjectType } from '@loopback/repository';

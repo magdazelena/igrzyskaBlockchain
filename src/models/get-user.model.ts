@@ -17,7 +17,7 @@ export class GetUser {
    *
    */
   @property({ name: 'id' })
-  id?: string;
+  id: string;
 
 }
 
