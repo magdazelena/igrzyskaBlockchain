@@ -9,7 +9,7 @@ const path = require('path');
 const configPath = path.join(process.cwd(), 'server/config.json');
 const configJSON = fs.readFileSync(configPath, 'utf8');
 const config = JSON.parse(configJSON);
-var userName = config.appAdmin;
+var userName = config.userName;
 var gatewayDiscovery = config.gatewayDiscovery;
 var connection_file = config.connection_file;
 
@@ -20,7 +20,7 @@ const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
 const ccp = JSON.parse(ccpJSON);
 
 // A wallet stores a collection of identities for use
-const wallet = new FileSystemWallet('./../server/wallet');
+const wallet = new FileSystemWallet('server/wallet');
 
 export module BlockChainModule {
 
@@ -32,7 +32,7 @@ export module BlockChainModule {
 
       try {
 
-        await gateway.connect(ccp, { wallet, identity: userName, discovery: gatewayDiscovery });
+        await gateway.connect(ccp, { wallet, identity: userName, discovery: false} );
 
         // Connect to our local fabric
         const network = await gateway.getNetwork('mychannel');
@@ -90,6 +90,15 @@ export module BlockChainModule {
       // let str = 'query'
       // let response = await keyPassed.contract.submitTransaction('query', 'arg1', 'arg2');
       let response = await contract.evaluateTransaction('get_user', id);
+      //  response = JSON.parse(response.toString());
+      return response;
+
+    }
+
+    async get_users(contract: any) {
+      // let str = 'query'
+      // let response = await keyPassed.contract.submitTransaction('query', 'arg1', 'arg2');
+      let response = await contract.evaluateTransaction('get_users');
       //  response = JSON.parse(response.toString());
       return response;
 
