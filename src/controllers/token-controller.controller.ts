@@ -6,13 +6,15 @@
 
 /* tslint:disable:no-any */
 import { operation, param, requestBody } from '@loopback/rest';
-import { GetUser } from '../models/get-user.model';
-import { TransactionUsed } from '../models/transaction-used.model';
-import { TransactionReceived } from '../models/transaction-received.model';
+
+//import { TransactionUsed } from '../models/transaction-used.model';
+//import { TransactionReceived } from '../models/transaction-received.model';
 //import { ResponseMessage } from '../models/response-message.model';
 import { BlockChainModule } from '../blockchainClient';
 import { ObjectType } from '@loopback/repository';
-import { User} from '../models/user.model';
+import { User } from '../models/user.model';
+import { Services } from '../models/services.model';
+import { Transaction } from '../models/transaction.model';
 
 let blockchainClient = new BlockChainModule.BlockchainClient();
 /**
@@ -26,10 +28,34 @@ const UserArrayType = {
   items: {
     type: 'array',
     items: {
-      'x-ts-type': User 
+      'x-ts-type': User
     },
   }
 };
+
+const ServicesToUseArrayType = {
+  type: 'array',
+  items: {
+    type: 'array',
+    items: {
+      'x-ts-type': Services
+    },
+  }
+};
+
+const ServicesToGetArrayType = {
+  type: 'array',
+  items: {
+    type: 'array',
+    items: {
+      'x-ts-type': Services
+    },
+  }
+};
+
+
+
+
 
 export class TokenControllerController {
   constructor() { }
@@ -43,7 +69,7 @@ export class TokenControllerController {
       },
     },
   })
-  async getUserCreate(@param({name: 'id', in: 'path'}) id: string): Promise<String> {
+  async getUserCreate(@param({ name: 'id', in: 'path' }) id: string): Promise<String> {
 
     try {
       let networkObj = await blockchainClient.connectToNetwork();
@@ -61,7 +87,7 @@ export class TokenControllerController {
     responses: {
       '200': {
         description: 'ResponseMessage model instance',
-        content: { 'application/json': { schema:  UserArrayType } },
+        content: { 'application/json': { schema: UserArrayType } },
       },
     },
   })
@@ -78,7 +104,105 @@ export class TokenControllerController {
       return JSON.stringify(responseMessage);
     }
   }
-  
+
+  @operation('get', '/get_services_to_use', {
+    responses: {
+      '200': {
+        description: 'ResponseMessage model instance',
+        content: { 'application/json': { schema: ServicesToUseArrayType } },
+      },
+    },
+  })
+  async getServicesToUse(): Promise<String> {
+
+    try {
+      let networkObj = await blockchainClient.connectToNetwork();
+
+      let resp = await blockchainClient.get_users(networkObj!.contract);
+      return JSON.parse(resp.toString());
+
+    } catch (error) {
+      let responseMessage = { message: error, statusCode: '400' };
+      return JSON.stringify(responseMessage);
+    }
+  }
+
+  @operation('get', '/get_services_to_get', {
+    responses: {
+      '200': {
+        description: 'ResponseMessage model instance',
+        content: { 'application/json': { schema: ServicesToGetArrayType } },
+      },
+    },
+  })
+  async getServicesToGet(): Promise<String> {
+
+    try {
+      let networkObj = await blockchainClient.connectToNetwork();
+
+      let resp = await blockchainClient.get_users(networkObj!.contract);
+      return JSON.parse(resp.toString());
+
+    } catch (error) {
+      let responseMessage = { message: error, statusCode: '400' };
+      return JSON.stringify(responseMessage);
+    }
+  }
+
+
+  @operation('post', '/transaction_used', {
+    responses: {
+      '200': {
+        description: 'ResponseMessage model instance',
+        content: { 'application/json': { schema: { 'x-ts-type': ServicesToGetArrayType } } },
+      },
+    },
+  })
+  async transactionUsedCreate(@requestBody() requestBody: Transaction): Promise<Object> {
+
+    try {
+      let networkObj = await blockchainClient.connectToNetwork();
+
+
+
+      return await blockchainClient.transaction_used(networkObj!.contract, requestBody);
+
+
+
+    } catch (error) {
+      return { message: error, statusCode: '400' };
+    }
+  }
+
+
+  @operation('post', '/transaction_get', {
+    responses: {
+      '200': {
+        description: 'ResponseMessage model instance',
+        content: { 'application/json': { schema: { 'x-ts-type': ServicesToGetArrayType } } },
+      },
+    },
+  })
+  async transactionReceviedCreate(@requestBody() requestBody: Transaction): Promise<Object> {
+
+    try {
+      let networkObj = await blockchainClient.connectToNetwork();
+
+      return await blockchainClient.transaction_recevied(networkObj!.contract, requestBody);
+
+
+    } catch (error) {
+      return { message: error, statusCode: '400' };
+    }
+  }
+
+
+
+
+
+
+
+
 
 }
 

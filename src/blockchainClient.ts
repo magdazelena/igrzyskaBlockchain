@@ -32,7 +32,7 @@ export module BlockChainModule {
 
       try {
 
-        await gateway.connect(ccp, { wallet, identity: userName, discovery: false} );
+        await gateway.connect(ccp, { wallet, identity: userName, discovery: false });
 
         // Connect to our local fabric
         const network = await gateway.getNetwork('mychannel');
@@ -116,34 +116,20 @@ export module BlockChainModule {
       return response;
     }
 
-    async transsaction_recevied(contract: any, id: any, serviceid: any, points: any, date: Number, signature: any) {
-      let response = await contract.evaluateTransaction('transsaction_recevied', id, serviceid, points, date, signature);
+    async transaction_recevied(contract: any, json: any) {
+      let response = await contract.submitTransaction('transaction_recevied', json);
       // console.log(response.toString())
       return response;
     }
 
-    async transsaction_used(contract: any, id: any, serviceid: any, points: any, date: Number, signature: any) {
-      let response = await contract.evaluateTransaction('transsaction_used', id, serviceid, points, date, signature);
+    async transaction_used(contract: any, json: any) {
+      let response = await contract.submitTransaction('transaction_used', json);
       // console.log(response.toString())
       return response;
     }
 
 
 
-    //async deleteByKey(contract: any, keyPassed: any) {
-    ///
-    //   let response = await contract.submitTransaction('deleteKey', keyPassed);
-    //   console.log('delete by key response: ')
-    //  console.log(JSON.parse(response.toString()))
-    //  console.log(response.length)
-    //  if (response.length === 2) {
-    //     response = `${keyPassed} does not exist`;
-    //      return response;
-    //    }
-    //    response = JSON.parse(response.toString());
-    //    return response;
-
-    // }
 
 
   }
